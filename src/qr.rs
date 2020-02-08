@@ -1,11 +1,11 @@
 //! Provides a simple and safe API.
 
-use crate::version::Version;
+use crate::builder::*;
 use crate::ec::ECLevel;
-use crate::mode::Mode;
 use crate::mask::Mask;
 use crate::matrix::Matrix;
-use crate::builder::*;
+use crate::mode::Mode;
+use crate::version::Version;
 
 /// The QR code.
 ///
@@ -32,17 +32,10 @@ pub struct Qr {
 impl Qr {
     /// Create a new QR from a string.
     pub fn new(s: &str) -> Result<Qr, Error> {
-        QrBuilder::new().into(s)
-    }
-
-    /// Create a new QR with specified error correction.
-    pub fn with_ecl(s: &str, ecl: ECLevel) -> Result<Qr, Error> {
-        QrBuilder::new().ecl(ecl).into(s)
-    }
-
-    /// Create a new QR with a specified version.
-    pub fn with_version(s: &str, v: Version) -> Result<Qr, Error> {
-        QrBuilder::new().version(v).into(s)
+        QrBuilder::new()
+            .version(Version::new(3))
+            .ecl(ECLevel::L)
+            .into(s)
     }
 
     /// Returns the size of the QR code.
@@ -50,4 +43,3 @@ impl Qr {
         self.version.size()
     }
 }
-

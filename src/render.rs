@@ -4,8 +4,8 @@
 use crate::matrix::{Matrix, Module};
 use crate::qr::Qr;
 
-use std::str::FromStr;
 use std::num::ParseIntError;
+use std::str::FromStr;
 use std::u8;
 
 /// A string renderer for converting a QR code into a representation
@@ -93,7 +93,7 @@ impl StringRenderer {
     // Append empty lines for quiet zone padding.
     fn qz_lines(&self, s: &mut String) {
         if self.qz {
-            for _ in 0..(4*self.module_h) {
+            for _ in 0..(4 * self.module_h) {
                 s.push_str("\n");
             }
         }
@@ -102,7 +102,7 @@ impl StringRenderer {
     // Append whitespace chars for quiet zone padding.
     fn qz_chars(&self, s: &mut String) {
         if self.qz {
-            for _ in 0..(4*self.module_w) {
+            for _ in 0..(4 * self.module_w) {
                 s.push(' ');
             }
         }
@@ -176,7 +176,7 @@ impl Color {
         Ok(Color {
             r: (r << 4) | r,
             g: (g << 4) | g,
-            b: (b << 4) | b
+            b: (b << 4) | b,
         })
     }
 
@@ -192,11 +192,7 @@ impl Color {
         let r = u8::from_str_radix(&s[1..3], 16)?;
         let g = u8::from_str_radix(&s[3..5], 16)?;
         let b = u8::from_str_radix(&s[5..7], 16)?;
-        Ok(Color {
-            r,
-            g,
-            b
-        })
+        Ok(Color { r, g, b })
     }
 
     /// Convert to a hex string.
@@ -222,10 +218,9 @@ impl FromStr for Color {
             _ => Err(ParseColorError),
         }
     }
-
 }
 
-impl From <ParseIntError> for ParseColorError {
+impl From<ParseIntError> for ParseColorError {
     fn from(_: ParseIntError) -> Self {
         ParseColorError
     }
@@ -286,7 +281,11 @@ impl SvgRenderer {
 
     /// Render matrix.
     pub fn render_matrix(&self, matrix: &Matrix) -> String {
-        let cell_count = if self.qz { matrix.size + 8 } else { matrix.size };
+        let cell_count = if self.qz {
+            matrix.size + 8
+        } else {
+            matrix.size
+        };
         // If not divided evenly adjust upwards and treat specified
         // width and height as minimums.
         let cell_w = ((self.w as f64) / (cell_count as f64)).ceil() as usize;
@@ -296,28 +295,42 @@ impl SvgRenderer {
         let h = cell_h * cell_count;
 
         let mut res = String::from(format!(
-"<?xml version=\"1.0\" standalone=\"yes\"?>
+            "<?xml version=\"1.0\" standalone=\"yes\"?>
 <svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\"
     viewBox=\"0 0 {w} {h}\" shape-rendering=\"crispEdges\">
 <rect x=\"0\" y=\"0\" width=\"{w}\" height=\"{h}\" fill=\"{light}\"/>
 <path fill=\"{dark}\" d=\"",
-        w = w,
-        h = h,
-        light = self.light.to_hex_str(),
-        dark = self.dark.to_hex_str()));
+            w = w,
+            h = h,
+            light = self.light.to_hex_str(),
+            dark = self.dark.to_hex_str()
+        ));
 
         for y in 0..matrix.size {
-            let yp = if self.qz { (y + 4) * cell_h } else { y * cell_h };
+            let yp = if self.qz {
+                (y + 4) * cell_h
+            } else {
+                y * cell_h
+            };
 
             for x in 0..matrix.size {
-                let xp = if self.qz { (x + 4) * cell_w } else { x * cell_w };
+                let xp = if self.qz {
+                    (x + 4) * cell_w
+                } else {
+                    x * cell_w
+                };
 
                 if matrix.is_dark(x, y) {
-                    res.push_str(format!("M{x} {y}h{w}v{h}H{x}V{y}",
-                                        x = xp,
-                                        y = yp,
-                                        w = cell_w,
-                                        h = cell_h).as_str());
+                    res.push_str(
+                        format!(
+                            "M{x} {y}h{w}v{h}H{x}V{y}",
+                            x = xp,
+                            y = yp,
+                            w = cell_w,
+                            h = cell_h
+                        )
+                        .as_str(),
+                    );
                 }
             }
         }
@@ -325,79 +338,3 @@ impl SvgRenderer {
         res
     }
 }
-
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use crate::builder::QrBuilder;
-    use crate::version::Version;
-    use crate::ec::ECLevel;
-
-    #[test]
-    fn string_renderer() {
-        let mut builder = QrBuilder::new()
-            .version(Version::new(1))
-            .ecl(ECLevel::Q);
-        builder.add_all("HELLO WORLD").unwrap();
-        let s = StringRenderer::new()
-            .light_module('~')
-            .dark_module('X')
-            .module_dimensions(2, 1)
-            .render_matrix(&builder.matrix);
-        //println!("{}", s);
-        let expected =
-"XXXXXXXXXXXXXX~~~~~~~~XX~~~~XXXXXXXXXXXXXX
-XX~~~~~~~~~~XX~~XXXX~~~~XX~~XX~~~~~~~~~~XX
-XX~~XXXXXX~~XX~~~~XX~~XXXX~~XX~~XXXXXX~~XX
-XX~~XXXXXX~~XX~~XXXXXXXXXX~~XX~~XXXXXX~~XX
-XX~~XXXXXX~~XX~~XXXX~~XX~~~~XX~~XXXXXX~~XX
-XX~~~~~~~~~~XX~~~~XX~~~~XX~~XX~~~~~~~~~~XX
-XXXXXXXXXXXXXX~~XX~~XX~~XX~~XXXXXXXXXXXXXX
-~~~~~~~~~~~~~~~~XXXX~~XXXX~~~~~~~~~~~~~~~~
-~~XX~~XXXXXXXX~~XXXX~~~~XXXXXX~~XXXX~~XX~~
-XX~~XXXXXXXX~~XX~~~~~~~~XXXXXXXX~~XXXXXX~~
-~~~~XX~~XX~~XXXX~~~~~~XX~~~~XXXX~~~~~~~~~~
-XX~~XXXX~~XX~~~~~~XX~~XXXX~~~~~~XXXX~~~~~~
-XXXX~~XXXXXXXXXXXXXXXX~~XXXXXX~~XXXXXXXXXX
-~~~~~~~~~~~~~~~~XX~~~~~~XX~~~~XX~~XX~~~~~~
-XXXXXXXXXXXXXX~~~~XXXX~~~~XXXX~~~~XXXXXXXX
-XX~~~~~~~~~~XX~~XX~~XX~~~~XX~~~~XX~~XXXXXX
-XX~~XXXXXX~~XX~~XXXX~~XX~~~~XX~~~~~~XXXXXX
-XX~~XXXXXX~~XX~~XX~~XXXXXX~~~~~~XX~~XX~~~~
-XX~~XXXXXX~~XX~~~~XX~~~~~~~~XX~~~~~~~~XXXX
-XX~~~~~~~~~~XX~~XXXXXX~~~~XXXXXX~~~~XXXX~~
-XXXXXXXXXXXXXX~~~~XX~~XX~~~~~~~~~~~~~~XX~~
-";
-        assert_eq!(s, expected);
-    }
-
-    #[test]
-    fn svg_renderer() {
-        let mut builder = QrBuilder::new()
-            .version(Version::new(1))
-            .ecl(ECLevel::Q);
-        builder.add_all("HELLO WORLD").unwrap();
-        let s = SvgRenderer::new()
-            .light_module(Color::new(229, 189, 227))
-            .dark_module(Color::new(119, 0, 0))
-            .dimensions(200, 200)
-            .render_matrix(&builder.matrix);
-        //println!("{}", s);
-        let expected = include_str!("test/hello_world.svg");
-        assert_eq!(s, expected);
-    }
-
-    #[test]
-    fn color() {
-        assert_eq!(Color::new(255, 100, 32), Color::hex(0xff6420));
-        assert_eq!(Color::hex(0xff6420).to_hex_str(), "#ff6420");
-        assert_eq!(Color::new(255, 0, 0).to_hex_str(), "#ff0000");
-        assert_eq!("#f92".parse::<Color>().unwrap(),
-                   Color::hex(0xff9922));
-        assert_eq!("#f1a293".parse::<Color>().unwrap(),
-                   Color::hex(0xf1a293));
-        assert!("#ooo".parse::<Color>().is_err())
-    }
-}
-
