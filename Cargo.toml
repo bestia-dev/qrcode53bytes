@@ -11,6 +11,5 @@ keywords = ["rust", "qrcode"]
 categories = ["qrcode"]
 
 [dependencies]
-regex = "1"
 bitvec = "0.10"
-lazy_static = "1.0"
+lazy_static="1.4.0"

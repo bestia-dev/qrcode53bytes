@@ -186,7 +186,7 @@ impl QrBuilder {
     /// Add format info.
     pub fn add_format_info(&mut self) {
         // Hard assumption that we have necessary data.
-        let format = info::format_info(self.ecl, self.mask.unwrap());
+        let format = info::format_info(self.mask.unwrap());
         self.add_format(&format);
     }
 
