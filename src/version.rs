@@ -10,21 +10,8 @@ pub struct Version(pub usize);
 impl Version {
     /// Create a new version, must be in the [1..40] range.
     pub fn new(v: usize) -> Version {
-        assert!(v >= 1 && v <= 40);
+        assert!(v == 3);
         Version(v)
-    }
-
-    /// Calculate the minimal required version to hold the string
-    /// in the given mode with the required error correction level.
-    pub fn minimal(s: &str, mode: Mode, e: ECLevel) -> Option<Version> {
-        let len = s.len();
-        for v in 0..40 {
-            let capacity = CAPACITIES[v][e as usize][mode as usize];
-            if len <= capacity {
-                return Some(Version(v + 1));
-            }
-        }
-        None
     }
 
     /// Return the data capacity.
@@ -39,23 +26,9 @@ impl Version {
 
     /// Returns the required len of the char count bit representation.
     pub fn char_count_len(&self, mode: Mode) -> usize {
-        if self.0 >= 1 && self.0 <= 9 {
+        if self.0 == 3 {
             match mode {
-                Mode::Numeric => 10,
-                Mode::Alphanumeric => 9,
                 Mode::Byte => 8,
-            }
-        } else if self.0 <= 26 {
-            match mode {
-                Mode::Numeric => 12,
-                Mode::Alphanumeric => 11,
-                Mode::Byte => 16,
-            }
-        } else if self.0 <= 40 {
-            match mode {
-                Mode::Numeric => 14,
-                Mode::Alphanumeric => 13,
-                Mode::Byte => 16,
             }
         } else {
             panic!("Malformed version {}", self.0);

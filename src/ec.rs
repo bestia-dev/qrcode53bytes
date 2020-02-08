@@ -10,12 +10,6 @@ use bitvec::*;
 pub enum ECLevel {
   /// Recovers 7% of data
   L = 0,
-  /// Recovers 15% of data
-  M,
-  /// Recovers 25% of data
-  Q,
-  /// Recovers 30% of data
-  H,
 }
 
 impl ECLevel {
@@ -23,9 +17,6 @@ impl ECLevel {
   pub fn to_bitvec(&self) -> BitVec {
     match self {
       ECLevel::L => bitvec![0, 1],
-      ECLevel::M => bitvec![0, 0],
-      ECLevel::Q => bitvec![1, 1],
-      ECLevel::H => bitvec![1, 0],
     }
   }
 }

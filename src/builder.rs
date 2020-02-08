@@ -20,7 +20,7 @@ use bitvec::*;
 pub struct QrBuilder {
     /// Version to use.
     /// If not set a minimal version will be calculated.
-    pub version: Option<Version>,
+    pub version: Version,
     /// Mask to use.
     /// If not set the optimal mask will be chosen per the QR specification.
     pub mask: Option<Mask>,
@@ -29,7 +29,7 @@ pub struct QrBuilder {
     pub ecl: ECLevel,
     /// Encoding mode to use.
     /// If not set will be inferred from input data.
-    pub mode: Option<Mode>,
+    pub mode: Mode,
 
     /// Resulting matrix.
     ///
@@ -52,10 +52,10 @@ impl QrBuilder {
     /// Create a new builder.
     pub fn new() -> QrBuilder {
         QrBuilder {
-            version: None,
+            version: Version::new(3),
             mask: None,
-            ecl: ECLevel::Q,
-            mode: None,
+            ecl: ECLevel::L,
+            mode: Mode::Byte,
 
             matrix: Matrix::new(0),
         }
@@ -65,7 +65,7 @@ impl QrBuilder {
     pub fn version(mut self, v: Version) -> Self {
         // Override old tmp matrix.
         self.matrix = Matrix::new(v.size());
-        self.version = Some(v);
+        self.version = v;
         self
     }
 
@@ -83,7 +83,7 @@ impl QrBuilder {
 
     /// Set the mode to use, will otherwise be calculated from input.
     pub fn mode(mut self, mode: Mode) -> Self {
-        self.mode = Some(mode);
+        self.mode = mode;
         self
     }
 
@@ -102,16 +102,16 @@ impl QrBuilder {
         Ok(Qr {
             matrix: self.matrix,
 
-            version: self.version.unwrap(),
+            version: self.version,
             ecl: self.ecl,
-            mode: self.mode.unwrap(),
+            mode: self.mode,
             mask: self.mask.unwrap(),
         })
     }
 
     /// Add all elements of a QR code.
     pub fn add_all(&mut self, s: &str) -> Result<(), Error> {
-        self.ensure_settings(s)?;
+        self.ensure_settings()?;
         self.add_fun_patterns();
         self.add_data(s)?;
         self.mask_data();
@@ -131,14 +131,14 @@ impl QrBuilder {
 
     /// Add data.
     pub fn add_data(&mut self, s: &str) -> Result<(), Error> {
-        self.ensure_settings(s)?;
+        self.ensure_settings()?;
 
-        let version = self.version.unwrap();
-        let mode = self.mode.unwrap();
+        let version = self.version;
+        let mode = self.mode;
         let ecl = self.ecl;
 
         let v = data::encode_with_mode(s, mode, version, ecl);
-        let v = ec::add(v, self.version.unwrap(), self.ecl);
+        let v = ec::add(v, self.version, self.ecl);
         self.add_raw_data(&v);
 
         Ok(())
@@ -194,14 +194,14 @@ impl QrBuilder {
 
     /// Add version info.
     pub fn add_version_info(&mut self) {
-        if let Some(v) = info::version_info(self.version.unwrap()) {
+        if let Some(v) = info::version_info(self.version) {
             self.add_version(&v);
         }
     }
 
     /// Return true if the build is complete.
     fn complete(&self) -> bool {
-        if self.version.is_none() || self.mode.is_none() || self.mask.is_none() {
+        if self.mask.is_none() {
             return false;
         }
         if self.matrix.size == 0 {
@@ -211,25 +211,10 @@ impl QrBuilder {
     }
 
     // Ensure we have required settings, otherwise decide from string.
-    fn ensure_settings(&mut self, s: &str) -> Result<(), Error> {
-        match self.mode {
-            Some(m) if !m.matches(s) => return Err(Error::UnsupportedMode),
-            Some(_) => (),
-            None => self.mode = Some(Mode::from_str(s)),
-        }
-
-        // Try to calculate a minimal version if nothing is provided.
-        if self.version.is_none() {
-            self.version = Version::minimal(s, self.mode.unwrap(), self.ecl);
-        }
-        // We can either fail to find a minimum or a faulty version was provided before.
-        if self.version.is_none() {
-            return Err(Error::MessageTooLong);
-        }
-
-        // Ensure the matrix is intialized.
+    fn ensure_settings(&mut self) -> Result<(), Error> {
+        // Ensure the matrix is initialized.
         if self.matrix.size == 0 {
-            self.matrix = Matrix::new(self.version.unwrap().size());
+            self.matrix = Matrix::new(self.version.size());
         }
 
         Ok(())
@@ -267,7 +252,7 @@ impl QrBuilder {
     }
 
     fn add_alignments(&mut self) {
-        let locations = ALIGNMENT_LOCATIONS[self.version.unwrap().index()];
+        let locations = ALIGNMENT_LOCATIONS[self.version.index()];
         for x in locations.iter() {
             for y in locations.iter() {
                 self.try_add_alignment(*x, *y);
@@ -305,7 +290,7 @@ impl QrBuilder {
     }
 
     fn add_dark_module(&mut self) {
-        let (x, y) = self.version.unwrap().dark_module_pos();
+        let (x, y) = self.version.dark_module_pos();
         self.matrix.set(x, y, Module::Function(true));
     }
 
@@ -326,7 +311,7 @@ impl QrBuilder {
         self.reserve_rect(8, size - 7, 8, size - 1);
 
         //// Larger versions needs two areas for version information.
-        if self.version.unwrap().extra_version_areas() {
+        if self.version.extra_version_areas() {
             self.reserve_rect(0, size - 11, 5, size - 9);
             self.reserve_rect(size - 11, 0, size - 9, 5);
         }
