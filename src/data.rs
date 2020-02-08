@@ -1,9 +1,9 @@
 //! Data encoding.
 
-use crate::mode::Mode;
 use crate::ec::ECLevel;
-use crate::version::Version;
 use crate::info;
+use crate::mode::Mode;
+use crate::version::Version;
 
 use bitvec::*;
 use std::cmp;
@@ -142,12 +142,9 @@ fn encode_byte_data(v: &Vec<u8>) -> BitVec {
 // Numeric and alphanumeric are compacted more.
 fn string_to_bytes(s: &str, mode: Mode) -> Vec<u8> {
     match mode {
-        Mode::Numeric =>
-            s.bytes().map(convert_numeric).collect(),
-        Mode::Alphanumeric =>
-            s.chars().map(convert_alphanumeric).collect(),
-        Mode::Byte =>
-            s.bytes().collect(),
+        Mode::Numeric => s.bytes().map(convert_numeric).collect(),
+        Mode::Alphanumeric => s.chars().map(convert_alphanumeric).collect(),
+        Mode::Byte => s.bytes().collect(),
     }
 }
 
@@ -205,47 +202,3 @@ fn convert_alphanumeric(c: char) -> u8 {
         _ => panic!("Unsupported alphanumeric '{}'", c),
     }
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn encode_full() {
-        let hello_res: BitVec = vec![0b00100000, 0b01011011, 0b00001011, 0b01111000,
-                                     0b11010001, 0b01110010, 0b11011100, 0b01001101,
-                                     0b01000011, 0b01000000,
-                                     // Three padding bytes
-                                     0b11101100, 0b00010001, 0b11101100].into();
-        let (_, encoded) = encode("HELLO WORLD", Version::new(1), ECLevel::Q);
-        assert_eq!(encoded, hello_res);
-    }
-
-    #[test]
-    fn internal() {
-        assert_eq!(bitvec_char_count(3, Mode::Numeric, Version::new(1)),
-                   bitvec![0, 0, 0, 0, 0, 0, 0, 0, 1, 1]);
-        assert_eq!(bitvec_char_count("HELLO WORLD".len(), Mode::Alphanumeric, Version::new(1)),
-                   bitvec![0, 0, 0, 0, 0, 1, 0, 1, 1]);
-
-        assert_eq!(encode_numeric_data(&vec![8, 6, 7, 5, 3, 0, 9]),
-                   bitvec![1, 1, 0, 1, 1, 0, 0, 0, 1, 1, // 867
-                           1, 0, 0, 0, 0, 1, 0, 0, 1, 0, // 530
-                           1, 0, 0, 1]); // 9
-        assert_eq!(encode_alphanumeric_data(&vec![17, 14]),
-                   bitvec![0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1]);
-        assert_eq!(encode_alphanumeric_data(&vec![45]),
-                   bitvec![1, 0, 1, 1, 0, 1]);
-
-        assert_eq!(string_to_bytes("0123456789", Mode::Numeric),
-                   vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
-        assert_eq!(string_to_bytes("ABCXYZ 0123456789$%*+-./:", Mode::Alphanumeric),
-                   vec![10, 11, 12, 33, 34, 35, 36,
-                        0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
-                        37, 38, 39, 40, 41, 42, 43, 44]);
-        assert_eq!(string_to_bytes("☃", Mode::Byte),
-                   vec![0b11100010, 0b10011000, 0b10000011]);
-    }
-}
-
-

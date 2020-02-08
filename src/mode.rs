@@ -1,8 +1,8 @@
 //! Encoding modes for a QR code.
 
-use regex::Regex;
 use bitvec::*;
 use lazy_static::lazy_static;
+use regex::Regex;
 
 /// Encoding modes.
 #[derive(Debug, PartialEq, Eq, Clone, Copy)]
@@ -73,24 +73,3 @@ lazy_static! {
     static ref NUMERIC_RX: Regex = Regex::new(r"^[0-9]+$").unwrap();
     static ref ALPHANUMERIC_RX: Regex = Regex::new(r"^[0-9A-Z$%*+-./: ]+$").unwrap();
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn creation() {
-        assert_eq!(Mode::from_str("0123456789"),
-                   Mode::Numeric);
-        assert_eq!(Mode::from_str("ABCXYZ 0123456789$%*+-./:"),
-                   Mode::Alphanumeric);
-        assert_eq!(Mode::from_str("☃"),
-                   Mode::Byte);
-    }
-
-    #[test]
-    fn internal() {
-        assert_eq!(Mode::Numeric.to_bitvec(), bitvec![0, 0, 0, 1]);
-    }
-}
-
