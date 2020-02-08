@@ -58,7 +58,7 @@ pub fn apply_mask(mask: Mask, matrix: &Matrix) -> Matrix {
 /// Evaluate the mask score of a matrix.
 pub fn evaluate(matrix: &Matrix) -> u16 {
     // It might be possible to combine these in the implementation to make it
-    // more concice, but this is easier to understand, test and debug.
+    // more concise, but this is easier to understand, test and debug.
     let e1 = evaluate_5_in_line(matrix);
     let e2 = evaluate_2x2(matrix);
     let e3 = evaluate_dl_pattern(matrix);
