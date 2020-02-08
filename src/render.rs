@@ -293,17 +293,26 @@ impl SvgRenderer {
         // We might grow larger so readjust dimensions.
         let w = cell_w * cell_count;
         let h = cell_h * cell_count;
-
+        /*
+                let mut res = String::from(format!(
+                    "<?xml version=\"1.0\" standalone=\"yes\"?>
+        <svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\"
+            viewBox=\"0 0 {w} {h}\" shape-rendering=\"crispEdges\">
+        <rect x=\"0\" y=\"0\" width=\"{w}\" height=\"{h}\" fill=\"{light}\"/>
+        <path fill=\"{dark}\" d=\"",
+                    w = w,
+                    h = h,
+                    light = self.light.to_hex_str(),
+                    dark = self.dark.to_hex_str()
+                ));
+        */
+        
         let mut res = String::from(format!(
-            "<?xml version=\"1.0\" standalone=\"yes\"?>
-<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\"
-    viewBox=\"0 0 {w} {h}\" shape-rendering=\"crispEdges\">
-<rect x=\"0\" y=\"0\" width=\"{w}\" height=\"{h}\" fill=\"{light}\"/>
-<path fill=\"{dark}\" d=\"",
-            w = w,
-            h = h,
-            light = self.light.to_hex_str(),
-            dark = self.dark.to_hex_str()
+            r##"<svg x="10%" y="22%" height="35%" width="80%" viewBox="0 0 222 222"
+    shape-rendering="crispEdges">
+ <rect x="0" y="0" width="100%" height="100%" fill="#ffffff" />
+ <path fill="#000000" d="{}"##,
+            ""
         ));
 
         for y in 0..matrix.size {
