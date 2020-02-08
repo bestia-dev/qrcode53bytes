@@ -2,8 +2,8 @@
 
 *Things are changing fast. 2020-02-09 LucianoBestia ver.0.0.1.*  
 
-I need to generate a simple QR code for url that has max 53 bytes.  
-QrCodes are pretty complicated. So specifying only one single use-case makes the code smaller. But it looses universality.  
+I need to generate a simple QR code for url that has max 53 bytes. I want to do this in wasm.  
+QR codes are pretty complicated. So specifying only one single use-case makes the code smaller. But it looses universality.  
 Smaller code is good for wasm.  
 The url I want to encode is like this:  
 `https://bestia.dev/mem6/#p04.1234`  
@@ -19,7 +19,11 @@ The smallest QR code for that is:
 - 53 bytes
 - ISO-8859-1
 
+The code is written by treeman. I just removed all the variants I don't need.  
+
+I use this code my wasm project <https://github.com/LucianoBestia/mem6_game>.  
+
 ## References
 
-<https://www.thonky.com/qr-code-tutorial>
-<https://github.com/treeman/rqr>
+<https://github.com/treeman/rqr>  
+<https://www.thonky.com/qr-code-tutorial>  
