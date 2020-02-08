@@ -25,8 +25,8 @@ impl ECLevel {
 ///
 /// This includes both the data and the error correction codewords,
 /// interleaved if necessary.
-pub fn add(data: BitVec, v: Version, ecl: ECLevel) -> BitVec {
-  let layout = info::group_block_count(v, ecl);
+pub fn add(data: BitVec, v: Version) -> BitVec {
+  let layout = info::group_block_count();
   assert_eq!(data.len() / 8, layout.iter().sum());
 
   let blocks = group_into_blocks(&data, &layout);
@@ -43,7 +43,7 @@ pub fn add(data: BitVec, v: Version, ecl: ECLevel) -> BitVec {
   }
 
   // Then interleave all ec codewords in blocks.
-  let ec_count = info::block_ec_count(v, ecl);
+  let ec_count = info::block_ec_count();
   let ec_blocks: Vec<Vec<u8>> = blocks
     .iter()
     .map(|x| generate_ec_codewords(x.as_slice(), ec_count))

@@ -135,10 +135,9 @@ impl QrBuilder {
 
         let version = self.version;
         let mode = self.mode;
-        let ecl = self.ecl;
 
-        let v = data::encode_with_mode(s, mode, version, ecl);
-        let v = ec::add(v, self.version, self.ecl);
+        let v = data::encode_with_mode(s, mode, version);
+        let v = ec::add(v, self.version);
         self.add_raw_data(&v);
 
         Ok(())
@@ -182,7 +181,6 @@ impl QrBuilder {
     /// Add info.
     pub fn add_info(&mut self) {
         self.add_format_info();
-        self.add_version_info();
     }
 
     /// Add format info.
@@ -190,13 +188,6 @@ impl QrBuilder {
         // Hard assumption that we have necessary data.
         let format = info::format_info(self.ecl, self.mask.unwrap());
         self.add_format(&format);
-    }
-
-    /// Add version info.
-    pub fn add_version_info(&mut self) {
-        if let Some(v) = info::version_info(self.version) {
-            self.add_version(&v);
-        }
     }
 
     /// Return true if the build is complete.
@@ -352,29 +343,6 @@ impl QrBuilder {
         // Rest bottom of the top left finder.
         for x in (size - 8)..size {
             self.matrix.set_fun(x, 8, iter.next().unwrap());
-        }
-        assert_eq!(iter.next(), None);
-    }
-
-    fn add_version(&mut self, bv: &BitVec) {
-        assert_eq!(bv.len(), 18);
-        let size = self.matrix.size;
-
-        // Bottom left version block.
-        let mut iter = bv.iter();
-        for x in 0..6 {
-            for y in (size - 11)..(size - 8) {
-                self.matrix.set_fun(x, y, iter.next().unwrap());
-            }
-        }
-        assert_eq!(iter.next(), None);
-
-        // Top right version block.
-        iter = bv.iter();
-        for y in 0..6 {
-            for x in (size - 11)..(size - 8) {
-                self.matrix.set_fun(x, y, iter.next().unwrap());
-            }
         }
         assert_eq!(iter.next(), None);
     }

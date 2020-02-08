@@ -1,6 +1,4 @@
 //! Data encoding.
-
-use crate::ec::ECLevel;
 use crate::info;
 use crate::mode::Mode;
 use crate::version::Version;
@@ -10,16 +8,16 @@ use std::cmp;
 
 /// Encode string data to BitVec.
 /// Does not include error correction codes, it only encodes the data portion.
-pub fn encode(s: &str, version: Version, ecl: ECLevel) -> (Mode, BitVec) {
+pub fn encode(s: &str, version: Version) -> (Mode, BitVec) {
     let mode = Mode::from_str(s);
-    let encoded = encode_with_mode(s, mode, version, ecl);
+    let encoded = encode_with_mode(s, mode, version);
     (mode, encoded)
 }
 
 /// Encode string data to BitVec in a specific mode.
 /// Does not include error correction codes, it only encodes the data portion.
-pub fn encode_with_mode(s: &str, mode: Mode, version: Version, ecl: ECLevel) -> BitVec {
-    let total_capacity = info::total_bits(version, ecl);
+pub fn encode_with_mode(s: &str, mode: Mode, version: Version) -> BitVec {
+    let total_capacity = info::total_bits();
 
     // Encoding is mode, char count, data.
     let mut bv = mode.to_bitvec();

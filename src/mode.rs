@@ -51,8 +51,3 @@ impl Mode {
         true
     }
 }
-
-lazy_static! {
-    static ref NUMERIC_RX: Regex = Regex::new(r"^[0-9]+$").unwrap();
-    static ref ALPHANUMERIC_RX: Regex = Regex::new(r"^[0-9A-Z$%*+-./: ]+$").unwrap();
-}
