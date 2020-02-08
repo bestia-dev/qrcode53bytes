@@ -1,0 +1,16 @@
+[package]
+name = "qrcode53bytes"
+version = "0.0.1"
+authors = ["Luciano Bestia <luciano.bestia@gmail.com>"]
+edition = "2018"
+description="QR code for 53 bytes"
+repository = "https://github.com/LucianoBestia/qrcode53bytes"
+readme = "README.md"
+license = "MIT"
+keywords = ["rust", "qrcode"]
+categories = ["qrcode"]
+
+[dependencies]
+regex = "1"
+bitvec = "0.10"
+lazy_static = "1.0"
