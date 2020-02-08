@@ -7,6 +7,6 @@ fn main() {
         .dark_module(Color::new(119, 0, 0))
         .dimensions(200, 200)
         .render(&qr);
-    let x = std::fs::write("other/new.svg", s);
+    let _x = std::fs::write("other/new.svg", s);
     //println!("{}", s);
 }

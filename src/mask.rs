@@ -3,8 +3,8 @@
 use crate::matrix::Matrix;
 
 use bitvec::*;
-use lazy_static::lazy_static;
 use std::cmp;
+use lazy_static::lazy_static;
 
 /// A mask, must be inside [0, 7] inclusive.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -18,10 +18,10 @@ impl Mask {
         Mask(v)
     }
 
-    fn fun(&self) -> Box<dyn Fn(usize, usize) -> bool> {
+    fn fun(&self) -> Box<Fn(usize, usize) -> bool> {
         match self.0 {
             0 => Box::new(move |x, y| (x + y) % 2 == 0),
-            1 => Box::new(move |_, y| y % 2 == 0),
+            1 => Box::new(move |_, y| y % 2 ==0),
             2 => Box::new(move |x, _| x % 3 == 0),
             3 => Box::new(move |x, y| (x + y) % 3 == 0),
             4 => Box::new(move |x, y| ((y / 2) + (x / 3)) % 2 == 0),
@@ -58,7 +58,7 @@ pub fn apply_mask(mask: Mask, matrix: &Matrix) -> Matrix {
 /// Evaluate the mask score of a matrix.
 pub fn evaluate(matrix: &Matrix) -> u16 {
     // It might be possible to combine these in the implementation to make it
-    // more concise, but this is easier to understand, test and debug.
+    // more concice, but this is easier to understand, test and debug.
     let e1 = evaluate_5_in_line(matrix);
     let e2 = evaluate_2x2(matrix);
     let e3 = evaluate_dl_pattern(matrix);
@@ -126,7 +126,7 @@ fn evaluate_2x2(matrix: &Matrix) -> u16 {
                 matrix.is_dark(x, y),
                 matrix.is_dark(x + 1, y),
                 matrix.is_dark(x, y + 1),
-                matrix.is_dark(x + 1, y + 1),
+                matrix.is_dark(x + 1, y + 1)
             ];
             let set_count = square.iter().filter(|x| **x).count();
             if set_count == 0 || set_count == 4 {
@@ -200,7 +200,7 @@ fn evaluate_bw(matrix: &Matrix) -> u16 {
     cmp::min(a, b) as u16
 }
 
-fn apply_mask_fun(f: Box<dyn Fn(usize, usize) -> bool>, matrix: &Matrix) -> Matrix {
+fn apply_mask_fun(f: Box<Fn(usize, usize) -> bool>, matrix: &Matrix) -> Matrix {
     let mut res = matrix.clone();
     for y in 0..res.size {
         for x in 0..res.size {
@@ -211,3 +211,60 @@ fn apply_mask_fun(f: Box<dyn Fn(usize, usize) -> bool>, matrix: &Matrix) -> Matr
     }
     res
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::builder::QrBuilder;
+    use crate::version::Version;
+    use crate::ec::ECLevel;
+
+    #[test]
+    fn apply_mask() {
+        let mut builder = QrBuilder::new().version(Version::new(1));
+        builder.add_fun_patterns();
+        builder.add_raw_data(&bitvec![1; 208]);
+        builder.mask_with(Mask::new(0));
+
+        let expected = "
+#######.*X-X-.#######
+#.....#.*-X-X.#.....#
+#.###.#.*X-X-.#.###.#
+#.###.#.*-X-X.#.###.#
+#.###.#.*X-X-.#.###.#
+#.....#.*-X-X.#.....#
+#######.#.#.#.#######
+........*-X-X........
+******#**X-X-********
+X-X-X-.-X-X-X-X-X-X-X
+-X-X-X#X-X-X-X-X-X-X-
+X-X-X-.-X-X-X-X-X-X-X
+-X-X-X#X-X-X-X-X-X-X-
+........#-X-X-X-X-X-X
+#######.*X-X-X-X-X-X-
+#.....#.*-X-X-X-X-X-X
+#.###.#.*X-X-X-X-X-X-
+#.###.#.*-X-X-X-X-X-X
+#.###.#.*X-X-X-X-X-X-
+#.....#.*-X-X-X-X-X-X
+#######.*X-X-X-X-X-X-
+";
+        //println!("{}", builder.to_dbg_string());
+        assert_eq!(builder.to_dbg_string(), expected);
+    }
+
+    #[test]
+    fn mask_evaluation() {
+        let mut builder = QrBuilder::new()
+            .version(Version::new(1))
+            .ecl(ECLevel::Q);
+        builder.add_fun_patterns();
+        builder.add_data("HELLO WORLD").unwrap();
+        assert_eq!(evaluate_5_in_line(&builder.matrix), 216);
+        assert_eq!(evaluate_2x2(&builder.matrix), 219);
+        assert_eq!(evaluate_dl_pattern(&builder.matrix), 0);
+        assert_eq!(evaluate_bw(&builder.matrix), 10);
+        assert_eq!(evaluate(&builder.matrix), 445);
+    }
+}
+
