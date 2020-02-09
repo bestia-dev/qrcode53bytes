@@ -22,8 +22,17 @@ pub use mode::Mode;
 pub mod qr;
 pub use qr::Qr;
 
-pub mod render;
-pub use render::*;
+pub mod rendercommons;
+pub use rendercommons::*;
+
+pub mod rendersvg;
+pub use rendersvg::*;
+
+pub mod renderstring;
+pub use renderstring::*;
+
+pub mod renderfordodrio;
+pub use renderfordodrio::*;
 
 pub mod version;
 pub use version::Version;

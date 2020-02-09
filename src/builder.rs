@@ -2,17 +2,7 @@
 //!
 //! Separated from the Qr struct to keep a simple and safe API.
 //! But it's still possible to interface with the builder directly.
-use crate::data;
-use crate::ec;
-use crate::ec::ECLevel;
-use crate::info;
-use crate::mask;
-use crate::mask::Mask;
-use crate::matrix::{Matrix, Module};
-use crate::mode::Mode;
-use crate::qr::Qr;
-use crate::render;
-use crate::version::Version;
+use crate::*;
 
 use bitvec::*;
 
@@ -350,7 +340,7 @@ impl QrBuilder {
 
     /// Convert to debug string.
     pub fn to_dbg_string(&self) -> String {
-        render::to_dbg_string(&self.matrix)
+        rendercommons::to_dbg_string(&self.matrix)
     }
 }
 
