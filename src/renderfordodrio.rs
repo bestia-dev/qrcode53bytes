@@ -1,14 +1,12 @@
 //! Renders the QR code to different outputs.
 //!
 //! Outputs to a string representation and svg are supported.
-use crate::matrix::{Matrix};
+use crate::matrix::Matrix;
 use crate::qr::Qr;
-use crate::*;
+//use crate::*;
 
 /// A string renderer for converting a QR code into svg.
 pub struct SvgDodrioRenderer {
-    light: rendercommons::Color,
-    dark: rendercommons::Color,
     w: usize,
     h: usize,
     qz: bool,
@@ -16,41 +14,8 @@ pub struct SvgDodrioRenderer {
 
 impl SvgDodrioRenderer {
     /// Create a new renderer.
-    pub fn new() -> Self {
-        Self {
-            light: rendercommons::Color::new(255, 255, 255),
-            dark: rendercommons::Color::new(0, 0, 0),
-            w: 200,
-            h: 200,
-            qz: true,
-        }
-    }
-
-    /// Set the light module color.
-    /// Will also be the color of the quiet zone, if relevant.
-    pub fn light_module(mut self, v: Color) -> Self {
-        self.light = v;
-        self
-    }
-
-    /// Set the dark module color.
-    pub fn dark_module(mut self, v: Color) -> Self {
-        self.dark = v;
-        self
-    }
-
-    /// Set if quiet zone should be produced.
-    pub fn quiet_zone(mut self, v: bool) -> Self {
-        self.qz = v;
-        self
-    }
-
-    /// Set the dimensions of the output, in pixels.
-    /// Includes the quiet zone, if relevant.
-    pub fn dimensions(mut self, w: usize, h: usize) -> Self {
-        self.w = w;
-        self.h = h;
-        self
+    pub fn new(w: usize, h: usize) -> Self {
+        Self { w, h, qz: true }
     }
 
     /// Render QR.
@@ -69,13 +34,14 @@ impl SvgDodrioRenderer {
         // width and height as minimums.
         let cell_w = ((self.w as f64) / (cell_count as f64)).ceil() as usize;
         let cell_h = ((self.h as f64) / (cell_count as f64)).ceil() as usize;
-        
+
         let mut res = String::from(format!(
-            r##"<svg x="10%" y="22%" height="35%" width="80%" viewBox="0 0 222 222"
-    shape-rendering="crispEdges">
- <rect x="0" y="0" width="100%" height="100%" fill="#ffffff" />
- <path fill="#000000" d="{}"##,
-            ""
+            r##"<svg x="10%" y="22%" height="35%" width="80%" viewBox="0 0 {w} {h}"
+            shape-rendering="crispEdges">
+         <rect x="0" y="0" width="100%" height="100%" fill="#ffffff" />
+         <path fill="#000000" d=" "##,
+            w = self.w,
+            h = self.h
         ));
 
         for y in 0..matrix.size {
