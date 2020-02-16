@@ -1,4 +1,4 @@
-use qrcode53bytes::{Qr, SvgRenderer};
+use qrcode53bytes::{Color, Qr, SvgRenderer};
 
 fn main() {
     let qr = Qr::new("https://bestia.dev/mem6/#p04.1234").unwrap();
