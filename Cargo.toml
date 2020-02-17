@@ -9,6 +9,27 @@ readme = "README.md"
 license = "MIT"
 keywords = ["rust", "qrcode"]
 categories = ["qrcode"]
+# publish to crates.io only these files
+publish = true
+include = [
+    "Cargo.toml",
+    "LICENSE",
+    "README.md",
+    "src/builder.rs",
+    "src/data.rs",
+    "src/ec.rs",
+    "src/info.rs",
+    "src/lib.rs",
+    "src/mask.rs",
+    "src/matrix.rs",
+    "src/mode.rs",
+    "src/qr.rs",
+    "src/rendercommons.rs",
+    "src/renderfordodrio.rs",
+    "src/renderstring.rs",
+    "src/rendersvg.rs",
+    "src/version.rs",
+]
 
 [dependencies]
 bitvec = "0.10"
