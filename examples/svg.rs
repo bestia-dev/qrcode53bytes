@@ -7,7 +7,8 @@ fn main() {
         .dark_module(Color::new(119, 0, 0))
         .dimensions(200, 200)
         .render(&qr);
-    let file_name = "other/new.svg";
+    let file_name = "other/svg.svg";
     let _x = std::fs::write(file_name, s);
     println!("File saved: {}", file_name);
+    println!("You can open it in the browser.{}", "");
 }

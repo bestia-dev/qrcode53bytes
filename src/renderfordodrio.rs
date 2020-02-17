@@ -35,15 +35,20 @@ impl SvgDodrioRenderer {
         let cell_w = ((self.w as f64) / (cell_count as f64)).ceil() as usize;
         let cell_h = ((self.h as f64) / (cell_count as f64)).ceil() as usize;
 
-        let mut res = String::from(format!(
-            r##"<svg x="10%" y="22%" height="35%" width="80%" viewBox="0 0 {w} {h}"
-            shape-rendering="crispEdges">
-         <rect x="0" y="0" width="100%" height="100%" fill="#ffffff" />
-         <path fill="#000000" d=" "##,
-            w = self.w,
-            h = self.h
-        ));
-
+        //only for debugging
+        /*
+                let mut res = String::from(format!(
+                    r##"<?xml version=\"1.0\" standalone=\"yes\"?>
+                    <svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\"
+                    x="10%" y="22%" height="35%" width="80%" viewBox="0 0 {w} {h}"
+                    shape-rendering="crispEdges">
+                 <rect x="0" y="0" width="100%" height="100%" fill="#ffffff" />
+                 <path fill="#000000" d=" "##,
+                    w = self.w,
+                    h = self.h
+                ));
+        */
+        let mut res = r##"<path fill="#000000" d=" "##.to_string();
         for y in 0..matrix.size {
             let yp = if self.qz {
                 (y + 4) * cell_h
@@ -72,7 +77,9 @@ impl SvgDodrioRenderer {
                 }
             }
         }
-        res.push_str("\"/></svg>\n");
+        res.push_str("\"/>\n");
+        //only for debugging
+        //res.push_str("\"/></svg>\n");
         res
     }
 }
