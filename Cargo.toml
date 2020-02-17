@@ -7,8 +7,8 @@ description="QR code for 53 bytes"
 repository = "https://github.com/LucianoBestia/qrcode53bytes"
 readme = "README.md"
 license = "MIT"
-keywords = ["rust", "qrcode"]
-categories = ["qrcode"]
+keywords = ["rust", "qrcode", "wasm"]
+categories = ["multimedia::images"]
 # publish to crates.io only these files
 publish = true
 include = [
