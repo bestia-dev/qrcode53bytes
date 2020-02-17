@@ -23,6 +23,10 @@ The code is written by treeman. I just removed all the variants I don't need.
 
 I use this code my wasm project <https://github.com/LucianoBestia/mem6_game>.  
 
+## Examples
+
+     cargo run --example svg
+
 ## References
 
 <https://github.com/treeman/rqr>  
