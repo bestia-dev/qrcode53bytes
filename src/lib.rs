@@ -1,4 +1,4 @@
-//region: lmake_readme insert "readme.md"
+// region: lmake_readme include "readme.md" //! A
 //! # qrcode53bytes
 //!
 //! *Things are changing fast. 2020-02-17 LucianoBestia ver.1.0.0.*  
@@ -33,7 +33,7 @@
 //! <https://github.com/treeman/rqr>  
 //! <https://www.thonky.com/qr-code-tutorial>  
 
-//endregion: lmake_readme insert "readme.md"
+// endregion: lmake_readme include "readme.md" //! A
 
 pub mod builder;
 pub use builder::*;

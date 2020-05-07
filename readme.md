@@ -23,6 +23,14 @@ The code is written by treeman. I just removed all the variants I don't need.
 
 I use this code my wasm project <https://github.com/LucianoBestia/mem6_game>.  
 
+## cargo crev reviews and advisory
+
+It is recommended to always use [cargo-crev](https://github.com/crev-dev/cargo-crev)  
+to verify the trustworthiness of each of your dependencies.  
+Please, spread this info.  
+On the web use this url to read crate reviews. Example:  
+<https://bestia.dev/cargo_crev_web/query/num-traits>  
+
 ## Examples
 
      cargo run --example svg
