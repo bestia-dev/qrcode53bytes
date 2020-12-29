@@ -20,7 +20,7 @@ impl Version {
 
     /// Return the size of the QR code.
     pub fn size(&self) -> usize {
-        (((self.index()) * 4) + 21)
+        ((self.index()) * 4) + 21
     }
 
     /// Returns the required len of the char count bit representation.
@@ -46,6 +46,6 @@ impl Version {
 
     /// Return the version value - 1, suitable for indexing.
     pub fn index(&self) -> usize {
-        (self.0 - 1)
+        self.0 - 1
     }
 }

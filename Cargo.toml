@@ -32,5 +32,5 @@ include = [
 ]
 
 [dependencies]
-bitvec = "0.10"
+bitvec = "0.10.2"
 lazy_static="1.4.0"

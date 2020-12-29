@@ -4,20 +4,18 @@
 name = "bitvec"
 version = "0.10.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "284495959f63520b015b41f8e2a0627af935345ea558ae779b354e8f98c966fa"
 
 [[package]]
 name = "lazy_static"
 version = "1.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e2abad23fbc42b3700f2f279844dc832adb2b2eb069b2df918f455c4e18cc646"
 
 [[package]]
 name = "qrcode53bytes"
 version = "1.0.0"
 dependencies = [
- "bitvec 0.10.2 (registry+https://github.com/rust-lang/crates.io-index)",
- "lazy_static 1.4.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "bitvec",
+ "lazy_static",
 ]
-
-[metadata]
-"checksum bitvec 0.10.2 (registry+https://github.com/rust-lang/crates.io-index)" = "284495959f63520b015b41f8e2a0627af935345ea558ae779b354e8f98c966fa"
-"checksum lazy_static 1.4.0 (registry+https://github.com/rust-lang/crates.io-index)" = "e2abad23fbc42b3700f2f279844dc832adb2b2eb069b2df918f455c4e18cc646"

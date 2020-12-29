@@ -1,5 +1,9 @@
 # qrcode53bytes
 
+[comment]: # (lmake_lines_of_code start)
+
+[comment]: # (lmake_lines_of_code end)
+
 *Things are changing fast. 2020-02-17 LucianoBestia ver.1.0.0.*  
 
 I need to generate a simple QR code for url that has max 53 bytes. I want to do this in wasm.  
