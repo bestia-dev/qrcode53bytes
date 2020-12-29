@@ -3,20 +3,20 @@ use crate::info;
 use crate::mode::Mode;
 use crate::version::Version;
 
-use bitvec::*;
+use bitvec::prelude::*;
 use std::cmp;
 
-/// Encode string data to BitVec.
+/// Encode string data to BitVec<Lsb0 , u8>.
 /// Does not include error correction codes, it only encodes the data portion.
-pub fn encode(s: &str, version: Version) -> (Mode, BitVec) {
+pub fn encode(s: &str, version: Version) -> (Mode, BitVec<Lsb0 , u8>) {
     let mode = Mode::from_str(s);
     let encoded = encode_with_mode(s, mode, version);
     (mode, encoded)
 }
 
-/// Encode string data to BitVec in a specific mode.
+/// Encode string data to BitVec<Lsb0 , u8> in a specific mode.
 /// Does not include error correction codes, it only encodes the data portion.
-pub fn encode_with_mode(s: &str, mode: Mode, version: Version) -> BitVec {
+pub fn encode_with_mode(s: &str, mode: Mode, version: Version) -> BitVec<Lsb0 , u8> {
     let total_capacity = info::total_bits();
 
     // Encoding is mode, char count, data.
@@ -49,17 +49,17 @@ pub fn encode_with_mode(s: &str, mode: Mode, version: Version) -> BitVec {
 }
 
 /// Append data to bitvec of a certain len.
-pub fn append(bv: &mut BitVec, v: u32, len: usize) {
+pub fn append(bv: &mut BitVec<Lsb0 , u8>, v: u32, len: usize) {
     bv.extend((0..len).rev().map(|i| (v >> i) & 1 != 0));
 }
 
-fn bitvec_char_count(len: usize, mode: Mode, v: Version) -> BitVec {
-    let mut bv = BitVec::new();
+fn bitvec_char_count(len: usize, mode: Mode, v: Version) -> BitVec<Lsb0 , u8> {
+    let mut bv = BitVec::<Lsb0 , u8>::new();
     append(&mut bv, len as u32, v.char_count_len(mode));
     bv
 }
 
-fn bitvec_data(s: &str, mode: Mode) -> BitVec {
+fn bitvec_data(s: &str, mode: Mode) -> BitVec<Lsb0 , u8> {
     let bytes = string_to_bytes(s, mode);
 
     match mode {
@@ -67,9 +67,9 @@ fn bitvec_data(s: &str, mode: Mode) -> BitVec {
     }
 }
 
-fn encode_byte_data(v: &Vec<u8>) -> BitVec {
+fn encode_byte_data(v: &Vec<u8>) -> BitVec<Lsb0 , u8> {
     // It's already in ISO 8859-1, or UTF-8
-    v[..].into()
+    BitVec::<Lsb0 , u8>::from_slice(&v[..])
 }
 
 // Converts string to byte representation.

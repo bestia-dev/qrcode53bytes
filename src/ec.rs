@@ -3,7 +3,7 @@
 use crate::info;
 use crate::version::Version;
 
-use bitvec::*;
+use bitvec::prelude::*;
 
 /// Error correction level.
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
@@ -14,9 +14,9 @@ pub enum ECLevel {
 
 impl ECLevel {
   /// Returns the bit encoding. It is not the same as the enum order.
-  pub fn to_bitvec(&self) -> BitVec {
+  pub fn to_bitvec(&self) -> BitVec<Lsb0 , u8> {
     match self {
-      ECLevel::L => bitvec![0, 1],
+      ECLevel::L => bitvec![Lsb0, u8;0, 1],
     }
   }
 }
@@ -25,7 +25,7 @@ impl ECLevel {
 ///
 /// This includes both the data and the error correction codewords,
 /// interleaved if necessary.
-pub fn add(data: BitVec, v: Version) -> BitVec {
+pub fn add(data: BitVec<Lsb0 , u8>, v: Version) -> BitVec<Lsb0 , u8> {
   let layout = info::group_block_count();
   assert_eq!(data.len() / 8, layout.iter().sum());
 
@@ -54,7 +54,7 @@ pub fn add(data: BitVec, v: Version) -> BitVec {
     }
   }
 
-  let mut res: BitVec = bytes.into();
+  let mut res: BitVec<Lsb0 , u8> = BitVec::<Lsb0 , u8>::from_vec(bytes);
 
   // Add padding remainder bits.
   let remainder = REMAINDER_BITS[v.index()];
@@ -101,7 +101,7 @@ fn generate_ec_codewords(msg: &[u8], ec_count: usize) -> Vec<u8> {
   v
 }
 
-fn group_into_blocks(bv: &BitVec, layout: &Vec<usize>) -> Vec<Vec<u8>> {
+fn group_into_blocks(bv: &BitVec<Lsb0 , u8>, layout: &Vec<usize>) -> Vec<Vec<u8>> {
   let data = bv.as_slice();
   assert_eq!(data.len(), layout.iter().sum());
 

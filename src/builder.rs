@@ -4,7 +4,7 @@
 //! But it's still possible to interface with the builder directly.
 use crate::*;
 
-use bitvec::*;
+use bitvec::prelude::*;
 
 /// Builder for a QR code.
 pub struct QrBuilder {
@@ -134,7 +134,7 @@ impl QrBuilder {
     }
 
     /// Add raw data.
-    pub fn add_raw_data(&mut self, v: &BitVec) {
+    pub fn add_raw_data(&mut self, v: &BitVec<Lsb0 , u8>) {
         let mut vi = 0;
         for (x, y) in ZigZagIt::new(self.matrix.size) {
             if self.matrix.is_fun(x, y) {
@@ -304,7 +304,7 @@ impl QrBuilder {
         self.matrix.set_rect(x0, y0, x1, y1, Module::Reserved);
     }
 
-    fn add_format(&mut self, bv: &BitVec) {
+    fn add_format(&mut self, bv: &BitVec<Lsb0 , u8>) {
         assert_eq!(bv.len(), 15);
         let size = self.matrix.size;
 
@@ -315,25 +315,25 @@ impl QrBuilder {
             if x == 6 {
                 continue;
             }
-            self.matrix.set_fun(x, 8, iter.next().unwrap());
+            self.matrix.set_fun(x, 8, *iter.next().unwrap());
         }
         for y in (0..9).rev() {
             // Avoid timing pattern.
             if y == 6 {
                 continue;
             }
-            self.matrix.set_fun(8, y, iter.next().unwrap());
+            self.matrix.set_fun(8, y, *iter.next().unwrap());
         }
         assert_eq!(iter.next(), None);
 
         // Half to the right of the bottom left finder.
         iter = bv.iter();
         for y in (size - 7..size).rev() {
-            self.matrix.set_fun(8, y, iter.next().unwrap());
+            self.matrix.set_fun(8, y, *iter.next().unwrap());
         }
         // Rest bottom of the top left finder.
         for x in (size - 8)..size {
-            self.matrix.set_fun(x, 8, iter.next().unwrap());
+            self.matrix.set_fun(x, 8, *iter.next().unwrap());
         }
         assert_eq!(iter.next(), None);
     }

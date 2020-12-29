@@ -2,7 +2,7 @@
 
 use crate::matrix::Matrix;
 
-use bitvec::*;
+use bitvec::prelude::*;
 use lazy_static::lazy_static;
 use std::cmp;
 
@@ -148,7 +148,7 @@ fn evaluate_dl_pattern(matrix: &Matrix) -> u16 {
 }
 
 fn count_dl_row(matrix: &Matrix, y: usize) -> u16 {
-    let mut row = BitVec::with_capacity(matrix.size);
+    let mut row = BitVec::<Lsb0 , u8>::with_capacity(matrix.size);
     for x in 0..matrix.size {
         row.push(!matrix.is_dark(x, y));
     }
@@ -156,7 +156,7 @@ fn count_dl_row(matrix: &Matrix, y: usize) -> u16 {
 }
 
 fn count_dl_col(matrix: &Matrix, x: usize) -> u16 {
-    let mut col = BitVec::with_capacity(matrix.size);
+    let mut col = BitVec::<Lsb0 , u8>::with_capacity(matrix.size);
     for y in 0..matrix.size {
         col.push(!matrix.is_dark(x, y));
     }
@@ -165,7 +165,7 @@ fn count_dl_col(matrix: &Matrix, x: usize) -> u16 {
 
 lazy_static! {
     // Dark/light patterns we should detect.
-    // BitVec can't be initialized in lazy_static so we'll use a standard Vec.
+    // <Lsb0 , u8> can't be initialized in lazy_static so we'll use a standard Vec.
     // Convert to bool once here to make later comparisons simpler.
     static ref DLP1: Vec<bool> = [0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1]
         .iter().map(|x| *x == 1).collect();
@@ -173,15 +173,15 @@ lazy_static! {
         .iter().map(|x| *x == 1).collect();
 }
 
-fn count_dl_patterns(bv: &BitVec) -> u16 {
+fn count_dl_patterns(bv: &BitVec<Lsb0 , u8>) -> u16 {
     let mut res = 0;
     // Each window is an iterator over 11 elements which we can
     // compare the patterns we search for against.
     for w in bv.windows(11) {
-        if w.iter().zip(DLP1.iter()).all(|(x, y)| x == *y) {
+        if w.iter().zip(DLP1.iter()).all(|(x, y)| x == y) {
             res += 1;
         }
-        if w.iter().zip(DLP2.iter()).all(|(x, y)| x == *y) {
+        if w.iter().zip(DLP2.iter()).all(|(x, y)| x == y) {
             res += 1;
         }
     }

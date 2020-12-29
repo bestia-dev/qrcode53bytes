@@ -1,6 +1,6 @@
 //! Encoding modes for a QR code.
 
-use bitvec::*;
+use bitvec::prelude::*;
 
 /// Encoding modes.
 #[derive(Debug, PartialEq, Eq, Clone, Copy)]
@@ -27,10 +27,10 @@ impl Mode {
         }
     }
 
-    /// BitVec representation.
-    pub fn to_bitvec(&self) -> BitVec {
+    /// BitVec<Lsb0 , u8> representation.
+    pub fn to_bitvec(&self) -> BitVec<Lsb0 , u8> {
         match self {
-            Mode::Byte => bitvec![0, 1, 0, 0],
+            Mode::Byte => bitvec![Lsb0, u8;0, 1, 0, 0],
         }
     }
 
