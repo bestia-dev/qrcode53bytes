@@ -32,5 +32,6 @@ include = [
 ]
 
 [dependencies]
+# later of bitvec 0.17.4 have breaking changes
 bitvec = "0.17.4"
 lazy_static="1.4.0"
