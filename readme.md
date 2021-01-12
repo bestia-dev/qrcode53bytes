@@ -43,3 +43,7 @@ On the web use this url to read crate reviews. Example:
 
 <https://github.com/treeman/rqr>  
 <https://www.thonky.com/qr-code-tutorial>  
+
+## changelog
+
+1.1.0 bitvec dependency was yanked. updated to 1.17.4, but later versions have breaking changes  

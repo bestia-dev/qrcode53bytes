@@ -1,6 +1,6 @@
 [package]
 name = "qrcode53bytes"
-version = "1.0.0"
+version = "1.1.0"
 authors = ["Luciano Bestia <luciano.bestia@gmail.com>"]
 edition = "2018"
 description="QR code for 53 bytes"
@@ -32,5 +32,6 @@ include = [
 ]
 
 [dependencies]
+# later of bitvec 0.17.4 have breaking changes
 bitvec = "0.17.4"
 lazy_static="1.4.0"
