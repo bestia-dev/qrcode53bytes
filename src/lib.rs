@@ -4,10 +4,10 @@
 //! **QR code for 53 bytes**  
 //! ***[repo](https://github.com/LucianoBestia/qrcode53bytes); version: 1.1.1  date: 2021-01-13 authors: Luciano Bestia***  
 //!
-//! [![Licence](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/LucianoBestia/qrcode53bytes/blob/master/LICENSE) [![Rust](https://github.com/LucianoBestia/qrcode53bytes/workflows/Rust/badge.svg)](https://github.com/LucianoBestia/qrcode53bytes/) [![crates.io](https://meritbadge.herokuapp.com/qrcode53bytes)](https://crates.io/crates/qrcode53bytes) [![Documentation](https://docs.rs/qrcode53bytes/badge.svg)](https://docs.rs/qrcode53bytes/) [![crev reviews](https://web.crev.dev/rust-reviews/badge/crev_count/qrcode53bytes.svg)](https://web.crev.dev/rust-reviews/crate/qrcode53bytes/)
+//! [![Licence](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/LucianoBestia/qrcode53bytes/blob/master/LICENSE) [![Rust](https://github.com/LucianoBestia/qrcode53bytes/workflows/rust/badge.svg)](https://github.com/LucianoBestia/qrcode53bytes/) [![crates.io](https://meritbadge.herokuapp.com/qrcode53bytes)](https://crates.io/crates/qrcode53bytes) [![Documentation](https://docs.rs/qrcode53bytes/badge.svg)](https://docs.rs/qrcode53bytes/) [![crev reviews](https://web.crev.dev/rust-reviews/badge/crev_count/qrcode53bytes.svg)](https://web.crev.dev/rust-reviews/crate/qrcode53bytes/)
 //!
 //! [![Lines in Rust code](https://img.shields.io/badge/Lines_in_Rust-1474-green.svg)](https://github.com/LucianoBestia/qrcode53bytes/)
-//! [![Lines in Doc comments](https://img.shields.io/badge/Lines_in_Doc_comments-235-blue.svg)](https://github.com/LucianoBestia/qrcode53bytes/)
+//! [![Lines in Doc comments](https://img.shields.io/badge/Lines_in_Doc_comments-258-blue.svg)](https://github.com/LucianoBestia/qrcode53bytes/)
 //! [![Lines in Comments](https://img.shields.io/badge/Lines_in_comments-86-purple.svg)](https://github.com/LucianoBestia/qrcode53bytes/)
 //! [![Lines in examples](https://img.shields.io/badge/Lines_in_examples-31-yellow.svg)](https://github.com/LucianoBestia/qrcode53bytes/)
 //! [![Lines in tests](https://img.shields.io/badge/Lines_in_tests-0-orange.svg)](https://github.com/LucianoBestia/qrcode53bytes/)
