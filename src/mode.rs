@@ -28,7 +28,7 @@ impl Mode {
     }
 
     /// BitVec<Lsb0 , u8> representation.
-    pub fn to_bitvec(&self) -> BitVec<Lsb0 , u8> {
+    pub fn to_bitvec(&self) -> BitVec<Lsb0, u8> {
         match self {
             Mode::Byte => bitvec![Lsb0, u8;0, 1, 0, 0],
         }

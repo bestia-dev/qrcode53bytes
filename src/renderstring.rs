@@ -1,9 +1,8 @@
 //! Renders the QR code to different outputs.
 //!
 //! Outputs to a string representation and svg are supported.
-use crate::matrix::{Matrix};
+use crate::matrix::Matrix;
 use crate::qr::Qr;
-
 
 /// A string renderer for converting a QR code into a representation
 /// suitable for text output.

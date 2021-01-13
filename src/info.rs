@@ -33,9 +33,9 @@ pub fn block_ec_count() -> usize {
 }
 
 /// Returns the format BitVec representation to be embedded.
-pub fn format_info(mask: Mask) -> BitVec<Lsb0 , u8> {
+pub fn format_info(mask: Mask) -> BitVec<Lsb0, u8> {
     let x = FORMAT_INFO[mask.0];
-    let mut bv = BitVec::<Lsb0 , u8>::with_capacity(15);
+    let mut bv = BitVec::<Lsb0, u8>::with_capacity(15);
     data::append(&mut bv, x as u32, 15);
     bv
 }

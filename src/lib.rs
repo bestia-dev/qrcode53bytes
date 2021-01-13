@@ -1,7 +1,16 @@
-// region: lmake_readme include "readme.md" //! A
+// region: lmake_md_to_doc_comments include README.md A //!
 //! # qrcode53bytes
 //!
-//! *Things are changing fast. 2020-02-17 LucianoBestia ver.1.0.0.*  
+//! **QR code for 53 bytes**  
+//! ***[repo](https://github.com/LucianoBestia/qrcode53bytes); version: 1.1.1  date: 2021-01-13 authors: Luciano Bestia***  
+//!
+//! [![Licence](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/LucianoBestia/qrcode53bytes/blob/master/LICENSE) [![Rust](https://github.com/LucianoBestia/qrcode53bytes/workflows/Rust/badge.svg)](https://github.com/LucianoBestia/qrcode53bytes/) [![crates.io](https://meritbadge.herokuapp.com/qrcode53bytes)](https://crates.io/crates/qrcode53bytes) [![Documentation](https://docs.rs/qrcode53bytes/badge.svg)](https://docs.rs/qrcode53bytes/) [![crev reviews](https://web.crev.dev/rust-reviews/badge/crev_count/qrcode53bytes.svg)](https://web.crev.dev/rust-reviews/crate/qrcode53bytes/)
+//!
+//! [![Lines in Rust code](https://img.shields.io/badge/Lines_in_Rust-1474-green.svg)](https://github.com/LucianoBestia/qrcode53bytes/)
+//! [![Lines in Doc comments](https://img.shields.io/badge/Lines_in_Doc_comments-235-blue.svg)](https://github.com/LucianoBestia/qrcode53bytes/)
+//! [![Lines in Comments](https://img.shields.io/badge/Lines_in_comments-86-purple.svg)](https://github.com/LucianoBestia/qrcode53bytes/)
+//! [![Lines in examples](https://img.shields.io/badge/Lines_in_examples-31-yellow.svg)](https://github.com/LucianoBestia/qrcode53bytes/)
+//! [![Lines in tests](https://img.shields.io/badge/Lines_in_tests-0-orange.svg)](https://github.com/LucianoBestia/qrcode53bytes/)
 //!
 //! I need to generate a simple QR code for url that has max 53 bytes. I want to do this in wasm.  
 //! QR codes are pretty complicated. So specifying only one single use-case makes the code smaller. But it looses universality.  
@@ -24,16 +33,29 @@
 //!
 //! I use this code my wasm project <https://github.com/LucianoBestia/mem6_game>.  
 //!
-//! ## Examples
+//! ## make
 //!
-//!      cargo run --example svg
+//! List all the prepared commands and tasks with `$ cargo make`.  
+//! <https://github.com/sagiegurari/cargo-make>
 //!
 //! ## References
 //!
 //! <https://github.com/treeman/rqr>  
 //! <https://www.thonky.com/qr-code-tutorial>  
-
-// endregion: lmake_readme include "readme.md" //! A
+//!
+//! ## cargo crev reviews and advisory
+//!
+//! It is recommended to always use [cargo-crev](https://github.com/crev-dev/cargo-crev)  
+//! to verify the trustworthiness of each of your dependencies.  
+//! Please, spread this info.  
+//! On the web use this url to read crate reviews. Example:  
+//! <https://web.crev.dev/rust-reviews/crate/num-traits/>  
+//!
+//! ## changelog
+//!
+//! 1.1.0 bitvec dependency was yanked. updated to 1.17.4, but later versions have breaking changes  
+//!
+// endregion: lmake_md_to_doc_comments include README.md A //!
 
 pub mod builder;
 pub use builder::*;

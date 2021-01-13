@@ -1,9 +1,9 @@
 [package]
 name = "qrcode53bytes"
-version = "1.1.0"
+version = "1.1.1"
 authors = ["Luciano Bestia <luciano.bestia@gmail.com>"]
 edition = "2018"
-description="QR code for 53 bytes"
+description = "QR code for 53 bytes"
 repository = "https://github.com/LucianoBestia/qrcode53bytes"
 readme = "README.md"
 license = "MIT"

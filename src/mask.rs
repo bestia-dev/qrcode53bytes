@@ -148,7 +148,7 @@ fn evaluate_dl_pattern(matrix: &Matrix) -> u16 {
 }
 
 fn count_dl_row(matrix: &Matrix, y: usize) -> u16 {
-    let mut row = BitVec::<Lsb0 , u8>::with_capacity(matrix.size);
+    let mut row = BitVec::<Lsb0, u8>::with_capacity(matrix.size);
     for x in 0..matrix.size {
         row.push(!matrix.is_dark(x, y));
     }
@@ -156,7 +156,7 @@ fn count_dl_row(matrix: &Matrix, y: usize) -> u16 {
 }
 
 fn count_dl_col(matrix: &Matrix, x: usize) -> u16 {
-    let mut col = BitVec::<Lsb0 , u8>::with_capacity(matrix.size);
+    let mut col = BitVec::<Lsb0, u8>::with_capacity(matrix.size);
     for y in 0..matrix.size {
         col.push(!matrix.is_dark(x, y));
     }
@@ -173,7 +173,7 @@ lazy_static! {
         .iter().map(|x| *x == 1).collect();
 }
 
-fn count_dl_patterns(bv: &BitVec<Lsb0 , u8>) -> u16 {
+fn count_dl_patterns(bv: &BitVec<Lsb0, u8>) -> u16 {
     let mut res = 0;
     // Each window is an iterator over 11 elements which we can
     // compare the patterns we search for against.

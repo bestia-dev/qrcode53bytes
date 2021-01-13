@@ -134,7 +134,7 @@ impl QrBuilder {
     }
 
     /// Add raw data.
-    pub fn add_raw_data(&mut self, v: &BitVec<Lsb0 , u8>) {
+    pub fn add_raw_data(&mut self, v: &BitVec<Lsb0, u8>) {
         let mut vi = 0;
         for (x, y) in ZigZagIt::new(self.matrix.size) {
             if self.matrix.is_fun(x, y) {
@@ -304,7 +304,7 @@ impl QrBuilder {
         self.matrix.set_rect(x0, y0, x1, y1, Module::Reserved);
     }
 
-    fn add_format(&mut self, bv: &BitVec<Lsb0 , u8>) {
+    fn add_format(&mut self, bv: &BitVec<Lsb0, u8>) {
         assert_eq!(bv.len(), 15);
         let size = self.matrix.size;
 
