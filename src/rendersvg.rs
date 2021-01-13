@@ -1,7 +1,7 @@
 //! Renders the QR code to different outputs.
 //!
 //! Outputs to a string representation and svg are supported.
-use crate::matrix::{Matrix};
+use crate::matrix::Matrix;
 use crate::qr::Qr;
 use crate::*;
 
@@ -72,19 +72,19 @@ impl SvgRenderer {
         // We might grow larger so readjust dimensions.
         let w = cell_w * cell_count;
         let h = cell_h * cell_count;
-        
-                let mut res = String::from(format!(
-                    "<?xml version=\"1.0\" standalone=\"yes\"?>
+
+        let mut res = String::from(format!(
+            "<?xml version=\"1.0\" standalone=\"yes\"?>
         <svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\"
             viewBox=\"0 0 {w} {h}\" shape-rendering=\"crispEdges\">
         <rect x=\"0\" y=\"0\" width=\"{w}\" height=\"{h}\" fill=\"{light}\"/>
         <path fill=\"{dark}\" d=\"",
-                    w = w,
-                    h = h,
-                    light = self.light.to_hex_str(),
-                    dark = self.dark.to_hex_str()
-                ));
-        
+            w = w,
+            h = h,
+            light = self.light.to_hex_str(),
+            dark = self.dark.to_hex_str()
+        ));
+
         for y in 0..matrix.size {
             let yp = if self.qz {
                 (y + 4) * cell_h

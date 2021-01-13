@@ -201,10 +201,9 @@ impl Matrix {
             match m {
                 Module::Unknown => return false,
                 Module::Reserved => return false,
-                _ => {},
+                _ => {}
             }
         }
         true
     }
 }
-

@@ -46,7 +46,7 @@ impl Color {
 
     /// Create a new color from a hex input.
     /// ```
-    /// # use rqr::*;
+    /// # use qrcode53bytes::*;
     /// let c = Color::hex(0xff3214);
     /// ```
     pub fn hex(v: u32) -> Self {
@@ -59,7 +59,7 @@ impl Color {
 
     /// Create a new color from a length 4 input hex.
     /// ```
-    /// # use rqr::*;
+    /// # use qrcode53bytes::*;
     /// // Short for "#770000"
     /// let c = Color::from_4_hex("#700");
     /// ```
@@ -80,7 +80,7 @@ impl Color {
 
     /// Create a new color from a length 7 input hex.
     /// ```
-    /// # use rqr::*;
+    /// # use qrcode53bytes::*;
     /// let c = Color::from_7_hex("#3477ff");
     /// ```
     pub fn from_7_hex(s: &str) -> Result<Self, ParseColorError> {
@@ -95,7 +95,7 @@ impl Color {
 
     /// Convert to a hex string.
     /// ```
-    /// # use rqr::*;
+    /// # use qrcode53bytes::*;
     /// assert_eq!(Color::hex(0xff7312).to_hex_str(), "#ff7312");
     /// ```
     pub fn to_hex_str(&self) -> String {
