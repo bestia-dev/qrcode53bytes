@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Error",""]],"struct":[["QrBuilder","Builder for a QR code."],["ZigZagIt",""]]});

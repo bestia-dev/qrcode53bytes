@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["StringRenderer","A string renderer for converting a QR code into a representation suitable for text output."]]});

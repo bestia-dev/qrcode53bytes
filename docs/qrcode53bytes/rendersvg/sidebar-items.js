@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["SvgRenderer","A string renderer for converting a QR code into svg."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Version","QR code version, defines the size"]]});

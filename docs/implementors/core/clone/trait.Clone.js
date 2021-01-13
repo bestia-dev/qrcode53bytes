@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["qrcode53bytes"] = [{"text":"impl Clone for Error","synthetic":false,"types":[]},{"text":"impl Clone for ECLevel","synthetic":false,"types":[]},{"text":"impl Clone for Mask","synthetic":false,"types":[]},{"text":"impl Clone for Module","synthetic":false,"types":[]},{"text":"impl Clone for Matrix","synthetic":false,"types":[]},{"text":"impl Clone for Mode","synthetic":false,"types":[]},{"text":"impl Clone for Color","synthetic":false,"types":[]},{"text":"impl Clone for ParseColorError","synthetic":false,"types":[]},{"text":"impl Clone for Version","synthetic":false,"types":[]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()
