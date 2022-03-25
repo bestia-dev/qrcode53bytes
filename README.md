@@ -5,7 +5,7 @@
 [comment]: # (lmake_cargo_toml_to_md start)
 
 **QR code for 53 bytes**  
-***version: 1.1.1  date: 2021-01-13 authors: [Bestia.Dev](https://bestia.dev); [GitHub repository](https://github.com/LucianoBestia/qrcode53bytes);***  
+***version: 1.1.1  date: 2021-01-13 author: [Dev_Bestia](https://bestia.dev); [GitHub repository](https://github.com/LucianoBestia/qrcode53bytes);***  
 
 [comment]: # (lmake_cargo_toml_to_md end)
 
