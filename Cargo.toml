@@ -1,10 +1,10 @@
 [package]
 name = "qrcode53bytes"
 version = "1.1.1"
-authors = ["Luciano Bestia <luciano.bestia@gmail.com>"]
+authors = ["bestia.dev <info@bestia.dev>"]
 edition = "2018"
 description = "QR code for 53 bytes"
-repository = "https://github.com/LucianoBestia/qrcode53bytes"
+repository = "https://github.com/bestia-dev/qrcode53bytes"
 readme = "README.md"
 license = "MIT"
 keywords = ["rust", "qrcode", "wasm"]
