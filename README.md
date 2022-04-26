@@ -9,7 +9,13 @@
 
 [comment]: # (lmake_cargo_toml_to_md end)
 
- [![crates.io](https://img.shields.io/crates/v/qrcode53bytes.svg)](https://crates.io/crates/qrcode53bytes) [![Documentation](https://docs.rs/qrcode53bytes/badge.svg)](https://docs.rs/qrcode53bytes/) [![crev reviews](https://web.crev.dev/rust-reviews/badge/crev_count/qrcode53bytes.svg)](https://web.crev.dev/rust-reviews/crate/qrcode53bytes/) [![RustActions](https://github.com/bestia-dev/qrcode53bytes/workflows/rust/badge.svg)](https://github.com/bestia-dev/qrcode53bytes/) [![latest doc](https://img.shields.io/badge/latest_docs-GitHub-orange.svg)](https://bestia-dev.github.io/qrcode53bytes/qrcode53bytes/index.html) [![Licence](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/bestia-dev/qrcode53bytes/blob/master/LICENSE)
+[![crates.io](https://img.shields.io/crates/v/qrcode53bytes.svg)](https://crates.io/crates/qrcode53bytes)
+[![Documentation](https://docs.rs/qrcode53bytes/badge.svg)](https://docs.rs/qrcode53bytes/)
+[![crev reviews](https://web.crev.dev/rust-reviews/badge/crev_count/qrcode53bytes.svg)](https://web.crev.dev/rust-reviews/crate/qrcode53bytes/)
+[![RustActions](https://github.com/bestia-dev/qrcode53bytes/workflows/rust/badge.svg)](https://github.com/bestia-dev/qrcode53bytes/)
+[![latest doc](https://img.shields.io/badge/latest_docs-GitHub-orange.svg)](https://bestia-dev.github.io/qrcode53bytes/qrcode53bytes/index.html)
+[![Licence](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/bestia-dev/qrcode53bytes/blob/master/LICENSE)
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fbestia-dev%2Fqrcode53bytes&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 
 [comment]: # (lmake_lines_of_code start)
 [![Lines in Rust code](https://img.shields.io/badge/Lines_in_Rust-1474-green.svg)](https://github.com/bestia-dev/qrcode53bytes/)
