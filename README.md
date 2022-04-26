@@ -14,7 +14,7 @@
 [![crev reviews](https://web.crev.dev/rust-reviews/badge/crev_count/qrcode53bytes.svg)](https://web.crev.dev/rust-reviews/crate/qrcode53bytes/)
 [![RustActions](https://github.com/bestia-dev/qrcode53bytes/workflows/rust/badge.svg)](https://github.com/bestia-dev/qrcode53bytes/)
 [![latest doc](https://img.shields.io/badge/latest_docs-GitHub-orange.svg)](https://bestia-dev.github.io/qrcode53bytes/qrcode53bytes/index.html)
-[![Licence](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/bestia-dev/qrcode53bytes/blob/master/LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/bestia-dev/qrcode53bytes/blob/master/LICENSE)
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fbestia-dev%2Fqrcode53bytes&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 
 [comment]: # (lmake_lines_of_code start)
@@ -25,6 +25,8 @@
 [![Lines in tests](https://img.shields.io/badge/Lines_in_tests-0-orange.svg)](https://github.com/bestia-dev/qrcode53bytes/)
 
 [comment]: # (lmake_lines_of_code end)
+
+Hashtags: #rustlang
 
 I need to generate a simple QR code for url that has max 53 bytes. I want to do this in wasm.  
 QR codes are pretty complicated. So specifying only one single use-case makes the code smaller. But it looses universality.  
