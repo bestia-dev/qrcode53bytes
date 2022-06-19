@@ -26,7 +26,8 @@
 
 [comment]: # (lmake_lines_of_code end)
 
-Hashtags: #rustlang
+Hashtags: #rustlang #tutorial
+My projects on Github are more like a tutorial than a finished product: [bestia-dev tutorials](https://github.com/bestia-dev/tutorials_rust_wasm).
 
 I need to generate a simple QR code for url that has max 53 bytes. I want to do this in wasm.  
 QR codes are pretty complicated. So specifying only one single use-case makes the code smaller. But it looses universality.  
