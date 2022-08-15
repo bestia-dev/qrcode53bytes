@@ -15,7 +15,7 @@
 [![RustActions](https://github.com/bestia-dev/qrcode53bytes/workflows/rust/badge.svg)](https://github.com/bestia-dev/qrcode53bytes/)
 [![latest doc](https://img.shields.io/badge/latest_docs-GitHub-orange.svg)](https://bestia-dev.github.io/qrcode53bytes/qrcode53bytes/index.html)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/bestia-dev/qrcode53bytes/blob/master/LICENSE)
-![Hits](https://bestia.dev/webpage_hit_counter/get_svg_image/455565280)
+![Hits](https://bestia.dev/webpage_hit_counter/get_svg_image/455565280.svg)
 
 [comment]: # (lmake_lines_of_code start)
 [![Lines in Rust code](https://img.shields.io/badge/Lines_in_Rust-1474-green.svg)](https://github.com/bestia-dev/qrcode53bytes/)
