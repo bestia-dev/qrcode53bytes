@@ -9,6 +9,8 @@
 
 [comment]: # (lmake_cargo_toml_to_md end)
 
+![status](https://img.shields.io/badge/maintained-green) 
+![status](https://img.shields.io/badge/ready_for_use-green) 
 [![crates.io](https://img.shields.io/crates/v/qrcode53bytes.svg)](https://crates.io/crates/qrcode53bytes)
 [![Documentation](https://docs.rs/qrcode53bytes/badge.svg)](https://docs.rs/qrcode53bytes/)
 [![crev reviews](https://web.crev.dev/rust-reviews/badge/crev_count/qrcode53bytes.svg)](https://web.crev.dev/rust-reviews/crate/qrcode53bytes/)
