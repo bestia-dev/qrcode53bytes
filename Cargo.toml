@@ -8,6 +8,7 @@ description = "QR code for 53 bytes"
 repository = "https://github.com/bestia-dev/qrcode53bytes"
 readme = "README.md"
 license = "MIT"
+# Keyword must be only one word: lowercase letters, hyphens(-) or numbers, less then 35 characters, at most 5 keywords per crate
 keywords = ["rust", "qrcode", "wasm"]
 categories = ["multimedia::images"]
 # publish to crates.io only these files
